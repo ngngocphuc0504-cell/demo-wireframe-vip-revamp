@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>FC Online VIP Revamp — Wireframe v2.2</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#d8d5d0;padding:20px;min-height:100vh}
+h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-weight:500;margin-bottom:12px}
+.tabs{display:flex;gap:4px;margin-bottom:14px}
+.tab{padding:7px 18px;border:1px solid #bbb;background:#e0ddd8;cursor:pointer;font-size:12px;color:#777;border-radius:5px;font-family:inherit;transition:all .15s}
+.tab:hover{background:#d5d2cd}
+.tab.on{background:#1e1e1e;color:#fff;border-color:#1e1e1e}
+.screen{display:none}.screen.on{display:block}
+.fix-badge{display:inline-block;font-size:10px;background:#c8a030;color:#fff;padding:1px 6px;border-radius:3px;font-weight:600;margin-right:4px}
+.new-badge{display:inline-block;font-size:10px;background:#3a8a3a;color:#fff;padding:1px 6px;border-radius:3px;font-weight:600;margin-right:4px}
+
+/* ── CHROME ── */
+.chrome{border:2px solid #aaa;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15);max-width:1100px}
+.cb{background:#cecbc5;padding:8px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #bbb}
+.dots{display:flex;gap:5px}.dot{width:10px;height:10px;border-radius:50%;background:#bbb}
+.url{flex:1;background:#fff;border:1px solid #bbb;border-radius:4px;padding:3px 10px;font-size:11px;color:#999;font-family:monospace}
+.page{background:#fff}
+
+/* ── S1 HEADER ── */
+.s1h{background:#1a1a1a;padding:10px 18px;display:flex;align-items:center;gap:14px}
+.logo-b{width:80px;height:24px;background:#3a3a3a;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;letter-spacing:1.5px;flex-shrink:0}
+.pg-title{font-size:13px;color:#aaa;flex:1;text-align:center;letter-spacing:.3px}
+
+/* ── S1 BODY ── */
+.s1-body{display:flex;background:#f0ede8;position:relative}
+
+/* LEFT: user panel */
+.upnl{width:160px;flex-shrink:0;background:#e8e5e0;border-right:1px solid #d5d2cc;padding:14px 12px;display:flex;flex-direction:column}
+.ava-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:10px}
+.ava{width:44px;height:44px;border-radius:50%;background:#ccc;border:2px solid #bbb;display:flex;align-items:center;justify-content:center;font-size:20px}
+.uname{font-size:12px;color:#333;font-weight:500;text-align:center;margin-top:6px}
+.ubadges{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.ubdg{font-size:9px;padding:3px 7px;border-radius:6px;border:1px solid #bbb;background:#dedbd6;color:#666;white-space:nowrap}
+.ubdg.elite{background:#2a1800;border:1.5px solid #9a6010;color:#f0a830;font-weight:700}
+.ubdg.legend{background:#180e38;border:1.5px solid #6040b8;color:#c8a8ff;font-weight:700}
+.udivider{border:none;border-top:1px dashed #ccc;margin:10px 0}
+.prog-blk{margin-bottom:8px}
+.pb-lbl{font-size:9px;color:#999;margin-bottom:3px}
+.pb{background:#ccc;border-radius:4px;height:6px;overflow:hidden}
+.pbf{height:100%;background:#777;border-radius:4px}
+.pb-meta{display:flex;justify-content:space-between;font-size:8px;color:#aaa;margin-top:3px}
+
+/* CENTER: map panel */
+.mpnl{flex:1;padding:12px;min-width:0;display:flex;flex-direction:column;gap:8px;position:relative}
+
+/* ── NEW v2.2: Birthday overlay ── */
+.bday-overlay{display:none;position:absolute;top:0;left:0;right:0;bottom:0;z-index:10;pointer-events:none;background:rgba(255,220,100,.06);border:2px dashed #e0a820;margin:12px;border-radius:6px}
+.bday-overlay.show{display:block;pointer-events:auto}
+.bday-banner{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #e0a820;color:#f0c840;font-size:11px;padding:6px 16px;border-radius:20px;white-space:nowrap;cursor:pointer;font-weight:500}
+.bday-banner:hover{background:#2a2a2a}
+.bday-dismiss{margin-left:8px;font-size:10px;opacity:.7;cursor:pointer}
+
+.zone-hdr-row{display:flex;gap:8px}
+.zh{flex:1;text-align:center;font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:#999;background:#e2dfd9;padding:4px 8px;border-radius:3px;border:1px solid #d2cfc9;font-weight:500}
+.zh.pz{background:#dce2d8;color:#888}
+.map-inner{display:flex;gap:8px;flex:1}
+.zone-half{flex:1;min-width:0}
+.bldg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+
+/* Buildings */
+.bc{padding:8px 4px;border-radius:5px;text-align:center;font-size:8px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed #ccc;color:#bbb;position:relative;transition:all .15s}
+.bc.fill{background:#dedad4;border-color:#c5c2bb;color:#555;border-style:solid;cursor:pointer}
+.bc.fill:hover{background:#d5d2cb}
+.bc.now{background:#c8c5be;border:2px solid #888;color:#222;font-weight:600;cursor:pointer}
+
+/* ── NEW v2.2: Gift-ready building ── */
+.bc.now.gift-ready{border-color:#c8a020;background:#d5d0b8;box-shadow:0 0 10px rgba(200,160,32,.35)}
+.bc.now.gift-ready:hover{background:#ccc9a8;box-shadow:0 0 14px rgba(200,160,32,.5)}
+.gift-dot{position:absolute;top:5px;right:5px;width:10px;height:10px;background:#e03030;border-radius:50%;border:1.5px solid #fff;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.75}}
+.bc .bi{font-size:18px;margin-bottom:4px;line-height:1}
+.bc .bn{font-size:8px;font-weight:600;line-height:1.3}
+.bc .bt{font-size:7px;color:#aaa;margin-top:2px}
+.bc.now .bt{color:#666;font-weight:500}
+.bc.now.gift-ready .bt{color:#8a7020;font-weight:600}
+.zone-sep{width:1.5px;background:#d0cdc8;flex-shrink:0}
+
+/* RIGHT col: mini tree + towers */
+.right-col{width:160px;flex-shrink:0;display:flex;flex-direction:column;background:#e8e5e0;border-left:1px solid #d5d2cc}
+.mtpnl{flex:1;padding:12px 10px 8px}
+.mtp-ttl{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:#888;font-weight:600;margin-bottom:8px}
+.mt-sec{margin-bottom:10px}
+.mts-hdr{font-size:10px;color:#555;font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:4px}
+.mts-hdr::after{content:'';flex:1;height:1px;background:#d5d2ce}
+.mtn{position:relative;padding:4px 7px 4px 18px;border-radius:4px;margin-bottom:3px;font-size:9px;color:#777;background:#e2dfd9;border:1px solid #d5d2ce;line-height:1.4}
+.mtn::before{content:'';position:absolute;left:5px;top:7px;width:8px;height:8px;border-radius:50%;background:#bbb;border:1.5px solid #aaa}
+.mtn.past{opacity:.4}.mtn.past::before{content:'✓';background:none;border:none;font-size:9px;color:#aaa;top:3px;left:4px}
+.mtn.cur{background:#d5d2cb;border-color:#999;color:#222;font-weight:500}.mtn.cur::before{background:#333;border-color:#222}
+.mtn.nxt{background:#eceae5;border-color:#d8d5ce;color:#888}
+.mtn.fdd{opacity:.35;border-style:dashed;background:#eceae5;color:#aaa;font-size:8px;font-style:italic}.mtn.fdd::before{background:#dedad6;border-color:#d5d2cc}
+.mtn-pb{background:#ccc;border-radius:3px;height:4px;overflow:hidden;margin-top:4px}
+.mtn-pbf{height:100%;background:#555;border-radius:3px}
+.mtn-abs{font-size:8px;color:#888;margin-top:3px;font-weight:500}
+.mt-link{font-size:8px;color:#888;text-align:right;cursor:pointer;text-decoration:underline;margin-top:3px;display:block}
+
+/* Towers landmark */
+.tl-section{border-top:1.5px dashed #c5c2bc;padding:10px;background:#dedad4}
+.tl-title{font-size:8px;text-transform:uppercase;letter-spacing:.7px;color:#aaa;margin-bottom:7px;font-weight:600}
+.tl-row{display:flex;gap:6px}
+.tbox{flex:1;padding:8px 4px;border-radius:5px;text-align:center;border:1.5px dashed #aaa;background:#e8e5e0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tbox .ti{font-size:20px;line-height:1}
+.tbox .tn{font-size:9px;font-weight:700;color:#888;margin-top:1px}
+.tbox .ts{font-size:7px;color:#bbb;line-height:1.4}
+.tbox.svip{border-color:#a08040;background:#f0e8d0}.tbox.svip .tn{color:#7a5820}
+.tbox.vvip{border-color:#808048;background:#f0f0d8}.tbox.vvip .tn{color:#585820}
+
+/* ── NEW v2.2: Footer with 4 buttons ── */
+.s1-footer{background:#1a1a1a;padding:10px 20px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.fb{font-size:11px;padding:8px 16px;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;background:none;font-family:inherit;transition:all .12s}
+.fb:hover{background:#2e2e2e}
+.fb.pri{background:#4a4a4a;border-color:#666}
+.fb.ph3{opacity:.38;cursor:not-allowed;border-style:dashed;border-color:#444}
+.ph3-tag{font-size:8px;background:#3a3a3a;padding:1px 5px;border-radius:3px;margin-left:5px;color:#888;vertical-align:middle}
+
+/* ── GIFT MODAL ── */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:center;justify-content:center}
+.modal-backdrop.show{display:flex}
+.gift-modal{background:#fff;border-radius:12px;width:340px;overflow:hidden;border:2px solid #ccc;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.gm-header{background:#1a1a1a;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.gm-title{font-size:14px;color:#ddd;font-weight:600}
+.gm-close{background:#444;border:none;color:#aaa;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.gm-close:hover{background:#555}
+.gm-body{padding:20px;text-align:center}
+.gift-icon-box{width:80px;height:80px;background:#f0ede8;border:2px dashed #ccc;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 12px}
+.gift-tier-lbl{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+.gift-name{font-size:14px;color:#333;font-weight:600;margin-bottom:6px}
+.gift-contents{font-size:11px;color:#888;background:#f5f2ed;padding:6px 14px;border-radius:6px;display:inline-block;margin-bottom:16px}
+.claim-btn{width:100%;padding:12px;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;margin-bottom:12px}
+.claim-btn:hover{background:#333}
+.claim-btn.claimed{background:#4a7a4a;cursor:default}
+.claim-btn.claimed:hover{background:#4a7a4a}
+.gift-reset{font-size:10px;color:#aaa;text-align:center}
+.gift-reset strong{color:#666}
+
+/* ── S2 TREE ── */
+.s2h{background:#1a1a1a;padding:9px 18px;display:flex;align-items:center;gap:12px}
+.back-btn{font-size:11px;color:#bbb;border:1px solid #555;padding:4px 10px;border-radius:4px;cursor:pointer;background:none;font-family:inherit}
+.back-btn:hover{background:#2e2e2e}
+.s2-ttl{font-size:14px;color:#ddd;font-weight:500}
+.tbar{background:#eeebe5;padding:10px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e0dcd6}
+.tpill{padding:5px 16px;border-radius:16px;font-size:11px;cursor:pointer;border:1.5px solid #bbb;background:#e5e2dd;color:#777;font-family:inherit;transition:all .15s}
+.tpill:hover{background:#dedad5}
+.tpill.on{background:#1e1e1e;color:#fff;border-color:#1e1e1e}
+.pts-i{margin-left:auto;font-size:10px;color:#777;background:#e0dcd6;padding:4px 10px;border-radius:10px}
+.tier-i{font-size:10px;background:#333;color:#ccc;padding:4px 10px;border-radius:10px}
+.treepg{padding:16px 18px;background:#f5f2ed;max-width:640px}
+.trk{position:relative;padding-left:48px}
+.trk::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:#d5d2cc}
+.tn{position:relative;margin-bottom:10px;padding:12px 14px;border-radius:7px;border:1.5px solid #ddd;background:#fff}
+.nd{position:absolute;left:-38px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;border:2px solid #bbb;background:#e8e5e0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#888}
+.tn.past{opacity:.38;background:#f0ede8}.tn.past .nd{background:#ccc}
+.tn.cur{border-color:#555;border-width:2px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.tn.cur .nd{background:#222;border-color:#111;color:#fff;font-size:11px}
+.tn.n1{background:#faf8f5;border-color:#ccc}
+.tn.n2{opacity:.45;border-style:dashed;border-color:#ccc}
+.tn.more{display:flex;align-items:center;justify-content:center;height:36px;border-style:dashed;border-color:#ddd;background:transparent;font-size:11px;color:#bbb}
+.npts{font-size:9px;color:#999;margin-bottom:3px;font-weight:500}
+.ntitle{font-size:13px;color:#444;font-weight:600}
+.nrwd{display:inline-block;margin-top:6px;background:#e8e5e0;border:1px solid #ccc;border-radius:4px;padding:4px 10px;font-size:10px;color:#666}
+.nclaim{float:right;font-size:9px;color:#999;background:#eee;padding:2px 8px;border-radius:10px;margin-top:2px}
+.cprow{margin-top:8px}
+.cpb{background:#ddd;border-radius:4px;height:5px;overflow:hidden;margin-top:4px}
+.cpbf{height:100%;background:#444;border-radius:4px}
+.cpm{display:flex;justify-content:space-between;font-size:9px;color:#999;margin-top:4px}
+.hi{color:#222;font-weight:600}
+.see-all{display:block;text-align:center;margin-top:12px;padding:12px;border:1.5px dashed #bbb;border-radius:7px;font-size:11px;color:#888;cursor:pointer;background:#faf8f5}
+.see-all:hover{background:#f0ede8}
+
+/* ── NEW v2.2: Activity Snapshot ── */
+.act-snap{margin-top:12px;padding-top:10px;border-top:1px dashed #ddd}
+.as-hdr{font-size:9px;color:#bbb;text-align:center;letter-spacing:.5px;margin-bottom:8px;text-transform:uppercase}
+.as-table{display:grid;grid-template-columns:auto 1fr 1fr;gap:3px 10px;align-items:center}
+.as-col-hdr{font-size:9px;color:#999;font-weight:600;text-align:center;padding-bottom:4px;border-bottom:1px solid #eee}
+.as-row-lbl{font-size:9px;color:#bbb}
+.as-val{font-size:10px;color:#555;font-weight:500;text-align:center}
+.as-val.prev{color:#bbb;font-weight:400}
+.as-ytd{margin-top:8px;padding-top:6px;border-top:1px solid #eee;font-size:9px;color:#aaa;text-align:center}
+
+/* ── S3 HALL OF FAME ── */
+.s3h{background:#1a1a1a;padding:10px 18px;display:flex;align-items:center;justify-content:space-between}
+.s3-ttl{font-size:15px;color:#ddd;font-weight:600;letter-spacing:.3px}
+.mstrip{background:#111;padding:8px 18px;display:flex;gap:10px;border-bottom:1px solid #2e2e2e;overflow-x:auto}
+.ms-item{flex-shrink:0;background:#2a2a2a;border:1px solid #444;border-radius:6px;padding:6px 14px;text-align:center;cursor:pointer}
+.ms-item:hover{background:#333}
+.ms-lbl{font-size:8px;color:#777;text-transform:uppercase;letter-spacing:.5px}
+.ms-val{font-size:11px;color:#ccc;font-weight:500;margin-top:2px}
+.ms-item.hist{opacity:.55}
+.hof-tabs{display:flex;border-bottom:1px solid #e5e2dd;background:#fff}
+.ht{flex:1;text-align:center;padding:12px;font-size:12px;cursor:pointer;color:#999;border-bottom:2px solid transparent;transition:all .15s}
+.ht.on{color:#222;border-bottom-color:#333;font-weight:600}
+.lbarea{max-height:320px;overflow-y:auto}
+.sh{background:#f0ede8;padding:5px 18px;font-size:9px;color:#999;letter-spacing:.7px;text-transform:uppercase;border-bottom:1px solid #e8e5e0;font-weight:600}
+.lbr{display:flex;align-items:center;gap:10px;padding:8px 18px;border-bottom:1px solid #f2f0ed;transition:background .1s}
+.lbr:hover{background:#faf8f5}
+.lbr.t5{background:#f5f3ee}.lbr.mine{background:#eeecea}
+.rk{width:22px;text-align:center;font-size:11px;color:#666;font-weight:700;flex-shrink:0}
+.rk.sp{background:#1a1a1a;color:#fff;border-radius:4px;height:20px;width:20px;display:flex;align-items:center;justify-content:center;font-size:10px}
+.lbava{width:32px;height:32px;border-radius:50%;background:#e0deda;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.lbinfo{flex:1;min-width:0}
+.lbn{font-size:12px;color:#333;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbt{font-size:9px;background:#e8e5e0;color:#777;border:1px solid #d5d2ce;padding:2px 7px;border-radius:8px;display:inline-block;margin-top:2px}
+.lbs{font-size:10px;color:#999;flex-shrink:0}
+.vbtn{font-size:10px;padding:4px 10px;border:1px solid #bbb;border-radius:3px;color:#666;cursor:pointer;background:#f5f2ed;flex-shrink:0;font-family:inherit}
+.vbtn:hover{background:#e8e5e0}
+.vbtn.me{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.hof-foot{padding:10px 18px;background:#f5f2ed;display:flex;justify-content:center;border-top:1px solid #e8e5e0}
+.hist-link{font-size:11px;color:#888;text-decoration:underline;cursor:pointer}
+
+/* Annotations */
+.ann-block{margin-top:12px;max-width:1100px}
+.ann-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.ann{font-size:10px;color:#888;padding:4px 10px;background:#f0ede8;border-left:3px solid #d0cdc8;line-height:1.5}
+.ann.fx{border-left-color:#c8a030;background:#faf5e8;color:#776030}
+.ann.nw{border-left-color:#3a8a3a;background:#f0f8f0;color:#2a5a2a}
+.badge-ref{margin-top:8px;max-width:1100px;padding:10px 14px;background:#f5f2ed;border:1px solid #e0ddd8;border-radius:6px}
+.br-title{font-size:10px;color:#888;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.br-row{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.br-item{display:flex;align-items:center;gap:8px}
+.br-lbl{font-size:10px;color:#aaa;line-height:1.4}
+</style>
+</head>
+<body>
+
+<h1>FC Online VIP Revamp — Wireframe v2.2 &nbsp;|&nbsp; Daily gift on map · Activity snapshot · Footer update</h1>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw(1,this)">① Main Map</button>
+  <button class="tab" onclick="sw(2,this)">② Reward Tree</button>
+  <button class="tab" onclick="sw(3,this)">③ Hall of Fame</button>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SCREEN 1 — MAIN MAP
+════════════════════════════════════ -->
+<div class="screen on" id="s1">
+<div class="chrome">
+  <div class="cb">
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="url">fconline.member.garena.vn/football-complex</div>
+  </div>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="s1h">
+      <div class="logo-b">FC ONLINE</div>
+      <div class="pg-title">Football Complex — Tháng 7 / 2025</div>
+    </div>
+
+    <!-- 3-panel body -->
+    <div class="s1-body">
+
+      <!-- LEFT: User Info -->
+      <div class="upnl">
+        <div class="ava-wrap">
+          <div class="ava">👤</div>
+          <div class="uname">Tên HLV</div>
+        </div>
+        <div class="ubadges">
+          <div class="ubdg">PAY: Gold</div>
+          <div class="ubdg">PLAY: IV</div>
+        </div>
+        <hr class="udivider">
+        <div class="prog-blk">
+          <div class="pb-lbl">Pay tháng này</div>
+          <div class="pb"><div class="pbf" style="width:67%"></div></div>
+          <div class="pb-meta"><span>1,450 FC</span><span>/ 1,500 Gold</span></div>
+        </div>
+        <div class="prog-blk">
+          <div class="pb-lbl">Play tháng này</div>
+          <div class="pb"><div class="pbf" style="width:82%"></div></div>
+          <div class="pb-meta"><span>82 trận</span><span>/ 100</span></div>
+        </div>
+      </div>
+
+      <!-- CENTER: Map -->
+      <div class="mpnl">
+
+        <!-- NEW v2.2: Birthday overlay (toggle to preview) -->
+        <div class="bday-overlay" id="bday-overlay">
+          <div class="bday-banner" onclick="claimBirthday()">
+            🎂 Quà Sinh Nhật — Tháng sinh nhật của bạn! &nbsp;Nhận quà →
+            <span class="bday-dismiss" onclick="event.stopPropagation();toggleBirthday()">&nbsp;✕</span>
+          </div>
+        </div>
+
+        <!-- Zone labels + birthday toggle -->
+        <div class="zone-hdr-row">
+          <div class="zh">← Pay Zone</div>
+          <div class="zh pz">Play Zone →</div>
+          <!-- wireframe preview toggle -->
+          <button onclick="toggleBirthday()" style="font-size:9px;padding:2px 8px;border:1px dashed #aaa;background:#ece9e4;color:#888;border-radius:3px;cursor:pointer;font-family:inherit;flex-shrink:0">🎂 Preview birthday</button>
+        </div>
+
+        <!-- Building grids -->
+        <div class="map-inner">
+
+          <!-- PAY buildings -->
+          <div class="zone-half">
+            <div class="bldg-grid">
+              <div class="bc fill"><div class="bi">🏟</div><div class="bn">Stadium</div><div class="bt">T1 ✓</div></div>
+              <div class="bc fill"><div class="bi">🏠</div><div class="bn">Residence</div><div class="bt">T2 ✓</div></div>
+              <div class="bc fill"><div class="bi">🏥</div><div class="bn">Medical</div><div class="bt">T3 ✓</div></div>
+              <div class="bc fill"><div class="bi">🎙</div><div class="bn">Press Rm</div><div class="bt">T4 ✓</div></div>
+              <div class="bc fill"><div class="bi">🛋</div><div class="bn">VIP Lounge</div><div class="bt">T5 ✓</div></div>
+              <div class="bc fill"><div class="bi">🏢</div><div class="bn">Mgmt Tower</div><div class="bt">T6 ✓</div></div>
+              <!-- NEW v2.2: current month building with gift state -->
+              <div class="bc now gift-ready" onclick="openGiftModal('pay')">
+                <div class="gift-dot"></div>
+                <div class="bi">⚽</div>
+                <div class="bn">FC Academy</div>
+                <div class="bt">🎁 Quà hôm nay</div>
+              </div>
+              <div class="bc"><div class="bt">T8</div></div>
+              <div class="bc"><div class="bt">T9</div></div>
+              <div class="bc"><div class="bt">T10</div></div>
+              <div class="bc"><div class="bt">T11</div></div>
+              <div class="bc"><div class="bt">T12</div></div>
+            </div>
+          </div>
+
+          <div class="zone-sep"></div>
+
+          <!-- PLAY buildings -->
+          <div class="zone-half">
+            <div class="bldg-grid">
+              <div class="bc fill"><div class="bi">⚽</div><div class="bn">Training</div><div class="bt">T1 ✓</div></div>
+              <div class="bc fill"><div class="bi">💪</div><div class="bn">Gym</div><div class="bt">T2 ✓</div></div>
+              <div class="bc fill"><div class="bi">🏅</div><div class="bn">Youth Arena</div><div class="bt">T3 ✓</div></div>
+              <div class="bc fill"><div class="bi">📚</div><div class="bn">Tactics Lib</div><div class="bt">T4 ✓</div></div>
+              <div class="bc fill"><div class="bi">🎥</div><div class="bn">Video Rm</div><div class="bt">T5 ✓</div></div>
+              <div class="bc fill"><div class="bi">🏃</div><div class="bn">Futsal</div><div class="bt">T6 ✓</div></div>
+              <!-- NEW v2.2: current month building with gift state -->
+              <div class="bc now gift-ready" onclick="openGiftModal('play')">
+                <div class="gift-dot"></div>
+                <div class="bi">🏊</div>
+                <div class="bn">Rec. Pool</div>
+                <div class="bt">🎁 Quà hôm nay</div>
+              </div>
+              <div class="bc"><div class="bt">T8</div></div>
+              <div class="bc"><div class="bt">T9</div></div>
+              <div class="bc"><div class="bt">T10</div></div>
+              <div class="bc"><div class="bt">T11</div></div>
+              <div class="bc"><div class="bt">T12</div></div>
+            </div>
+          </div>
+
+        </div><!-- map-inner -->
+      </div><!-- mpnl -->
+
+      <!-- RIGHT: Mini tree + Towers -->
+      <div class="right-col">
+        <div class="mtpnl">
+          <div class="mtp-ttl">Cây Tích Lũy</div>
+          <!-- Pay Tree mini -->
+          <div class="mt-sec">
+            <div class="mts-hdr">💰 Pay</div>
+            <div class="mtn past">✓ Mốc 10,000 FC</div>
+            <div class="mtn cur">
+              Mốc 50,000 FC
+              <div class="mtn-pb"><div class="mtn-pbf" style="width:90%"></div></div>
+              <div class="mtn-abs">45,000 / 50,000 FC</div>
+            </div>
+            <div class="mtn nxt">Mốc 100,000 FC →</div>
+            <div class="mtn fdd">Mốc 300,000 FC…</div>
+            <span class="mt-link" onclick="sw(2,null)">Xem đầy đủ →</span>
+          </div>
+          <!-- Play Tree mini -->
+          <div class="mt-sec">
+            <div class="mts-hdr">⚽ Play</div>
+            <div class="mtn past">✓ Mốc 2,000 điểm</div>
+            <div class="mtn cur">
+              Mốc 5,000 điểm
+              <div class="mtn-pb"><div class="mtn-pbf" style="width:65%"></div></div>
+              <div class="mtn-abs">Hiện tại: 3,240 / 5,000 đ</div>
+            </div>
+            <div class="mtn nxt">Mốc 10,000 điểm →</div>
+            <div class="mtn fdd">Mốc 20,000 điểm…</div>
+            <span class="mt-link" onclick="sw(2,null)">Xem đầy đủ →</span>
+          </div>
+        </div>
+        <!-- Towers landmark -->
+        <div class="tl-section">
+          <div class="tl-title">Tòa Tháp Năm</div>
+          <div class="tl-row">
+            <div class="tbox svip"><span class="ti">🔒</span><span class="tn">SVIP</span><span class="ts">1,000,000 FC/năm</span></div>
+            <div class="tbox vvip"><span class="ti">🔒</span><span class="tn">VVIP</span><span class="ts">2,000,000 FC/năm</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- s1-body -->
+
+    <!-- NEW v2.2: Footer with 4 buttons -->
+    <div class="s1-footer">
+      <button class="fb pri" onclick="sw(3,null)">🏆 Sảnh Danh Vọng</button>
+      <button class="fb" onclick="alert('Rương May Mắn — modal riêng, scope Phase 1')">🎰 Rương May Mắn</button>
+      <button class="fb" onclick="alert('VIP Shop — trang riêng, scope Phase 1')">🛒 VIP Shop</button>
+      <button class="fb ph3">📋 Lịch sử Complex <span class="ph3-tag">Phase 3</span></button>
+    </div>
+
+  </div><!-- page -->
+</div><!-- chrome -->
+
+<!-- Annotations S1 -->
+<div class="ann-block">
+  <div class="ann-row">
+    <div class="ann nw"><span class="new-badge">NEW</span> T7 buildings glow gold + red dot khi có quà chưa nhận — click → Gift Modal</div>
+    <div class="ann nw"><span class="new-badge">NEW</span> Birthday overlay chỉ hiện trong tháng sinh nhật — click "Preview birthday" để xem state</div>
+  </div>
+  <div class="ann-row">
+    <div class="ann nw"><span class="new-badge">NEW</span> Footer: thêm 🎰 Rương May Mắn + 🛒 VIP Shop — frequency thấp → footer thay vì map</div>
+    <div class="ann fx">Sau khi nhận quà: red dot biến mất, building trở về normal state, Gift Modal show "Đã nhận"</div>
+  </div>
+  <div class="ann-row">
+    <div class="ann">📌 Cần confirm: quà daily có khác theo tier không? (Gold nhận khác Bronze?)</div>
+    <div class="ann">📌 Cần confirm: người chơi không có tier tháng này (chưa nạp) có daily gift không?</div>
+  </div>
+</div>
+
+<!-- Badge ref -->
+<div class="badge-ref">
+  <div class="br-title">Badge State Reference (PAY track)</div>
+  <div class="br-row">
+    <div class="br-item"><div class="ubdg">PAY: Gold</div><div class="br-lbl">Default — Bronze → Diamond</div></div>
+    <div class="br-item"><div class="ubdg elite">🔥 TOP 50</div><div class="br-lbl">Rank 6–50 tháng</div></div>
+    <div class="br-item"><div class="ubdg legend">★ LEGEND</div><div class="br-lbl">Rank 1–5 tháng</div></div>
+  </div>
+</div>
+</div><!-- screen s1 -->
+
+
+<!-- ════════════════════════════════════
+     DAILY GIFT MODAL
+════════════════════════════════════ -->
+<div class="modal-backdrop" id="gift-modal">
+  <div class="gift-modal">
+    <div class="gm-header">
+      <span class="gm-title">🎁 Quà Hôm Nay</span>
+      <button class="gm-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="gm-body">
+      <div class="gift-icon-box" id="gift-icon">🎁</div>
+      <div class="gift-tier-lbl" id="gift-zone-label">Pay Zone · Gold Class</div>
+      <div class="gift-name">Gói Quà Hàng Ngày VIP Gold</div>
+      <div class="gift-contents">50 FC &nbsp;+&nbsp; 1 Enhancement Pack</div>
+      <button class="claim-btn" id="claim-btn" onclick="claimGift()">Nhận Ngay</button>
+      <div class="gift-reset">
+        Reset lúc 00:00 — còn <strong id="countdown-display">...</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Birthday Gift Modal -->
+<div class="modal-backdrop" id="bday-modal">
+  <div class="gift-modal">
+    <div class="gm-header" style="background:#3a2a00;border-bottom:1px solid #8a6010">
+      <span class="gm-title" style="color:#f0c840">🎂 Quà Sinh Nhật</span>
+      <button class="gm-close" onclick="closeBdayModal()">✕</button>
+    </div>
+    <div class="gm-body">
+      <div class="gift-icon-box" style="background:#fff8e8;border-color:#e0a820;font-size:40px">🎂</div>
+      <div class="gift-tier-lbl">Chúc mừng sinh nhật!</div>
+      <div class="gift-name">Quà Sinh Nhật VIP Gold</div>
+      <div class="gift-contents">200 FC &nbsp;+&nbsp; 1 Cầu thủ Random Silver</div>
+      <button class="claim-btn" style="background:#7a5010" onclick="closeBdayModal()">Nhận Quà Sinh Nhật</button>
+      <div class="gift-reset" style="color:#c0a040">Quà sinh nhật nhận được 1 lần / năm</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SCREEN 2 — REWARD TREE
+════════════════════════════════════ -->
+<div class="screen" id="s2">
+<div class="chrome">
+  <div class="cb">
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="url">fconline.member.garena.vn/football-complex/tree</div>
+  </div>
+  <div class="page">
+    <div class="s2h">
+      <button class="back-btn" onclick="sw(1,null)">← Quay lại</button>
+      <div class="s2-ttl">Cây Quà Tích Lũy</div>
+    </div>
+    <div class="tbar">
+      <button class="tpill on" id="tp-pay" onclick="switchTree('pay')">💰 Pay Tree</button>
+      <button class="tpill" id="tp-play" onclick="switchTree('play')">⚽ Play Tree</button>
+      <div class="pts-i" id="pts-label">Tích lũy trọn đời: <strong>45,000</strong> FC+MC</div>
+      <div class="tier-i" id="tier-label">Gold (tier tháng)</div>
+    </div>
+
+    <!-- PAY TREE -->
+    <div class="treepg" id="pay-tree">
+      <div class="trk">
+        <div class="tn past">
+          <div class="nd">✓</div>
+          <span class="nclaim">Đã nhận</span>
+          <div class="npts">Mốc 10,000 FC+MC</div>
+          <div class="ntitle">Gói quà 10K</div>
+          <div class="nrwd">📦 500 FC + Cầu thủ Bronze</div>
+        </div>
+        <div class="tn cur">
+          <div class="nd" style="background:#222;border-color:#111;color:#fff;font-size:11px">▶</div>
+          <div class="npts" style="color:#444;font-weight:600">Mốc hiện tại — 50,000 FC+MC</div>
+          <div class="ntitle" style="font-size:14px;color:#111">Gói quà 50K ⭐</div>
+          <div class="nrwd" style="background:#ddd;border-color:#aaa">📦 2,000 FC + Cầu thủ Silver + Golden Jersey</div>
+          <div class="cprow">
+            <div style="font-size:10px;color:#555;font-weight:500">Tích lũy: 45,000 / 50,000 FC+MC</div>
+            <div class="cpb"><div class="cpbf" style="width:90%"></div></div>
+            <div class="cpm"><span>45,000 / 50,000 FC</span><span class="hi">⚡ Còn thiếu 5,000 FC</span></div>
+          </div>
+          <!-- Pay Tree: no activity snapshot (single-source metric) -->
+        </div>
+        <div class="tn n1">
+          <div class="nd" style="background:#ddd;border-color:#ccc"></div>
+          <div class="npts">Mốc tiếp theo — 100,000 FC+MC</div>
+          <div class="ntitle">Gói quà 100K 💎</div>
+          <div class="nrwd">📦 5,000 FC + Cầu thủ Gold + Particle Effect</div>
+          <div style="margin-top:5px;font-size:9px;color:#999">Cần thêm ~55,000 FC+MC</div>
+        </div>
+        <div class="tn n2">
+          <div class="nd" style="background:#eee;border-color:#ddd"></div>
+          <div class="npts">Mốc xa — 300,000 FC+MC</div>
+          <div class="ntitle" style="color:#bbb">Gói quà 300K ✨</div>
+          <div class="nrwd" style="background:#f8f8f8;border-color:#e5e5e5;color:#bbb">📦 ???</div>
+        </div>
+        <div class="tn more">
+          <div class="nd" style="background:#f0f0f0;border-color:#e5e5e5;left:-38px"></div>
+          + 4 mốc ẩn — scroll: 600K · 1M · 2M FC…
+        </div>
+      </div>
+      <div class="see-all">📋 Xem toàn bộ mốc quà trọn đời ↓</div>
+    </div>
+
+    <!-- PLAY TREE -->
+    <div class="treepg" id="play-tree" style="display:none">
+      <div class="trk">
+        <div class="tn past">
+          <div class="nd">✓</div>
+          <span class="nclaim">Đã nhận</span>
+          <div class="npts">Mốc 2,000 điểm</div>
+          <div class="ntitle">Gói quà Play 2K</div>
+          <div class="nrwd">📦 200 FC + Player Pack</div>
+        </div>
+
+        <!-- current node: has Activity Snapshot (NEW v2.2) -->
+        <div class="tn cur">
+          <div class="nd" style="background:#222;border-color:#111;color:#fff;font-size:11px">▶</div>
+          <div class="npts" style="color:#444;font-weight:600">Mốc hiện tại — 5,000 điểm</div>
+          <div class="ntitle" style="font-size:14px;color:#111">Gói quà Play 5K ⭐</div>
+          <div class="nrwd" style="background:#ddd;border-color:#aaa">📦 500 FC + Cầu thủ Silver</div>
+          <div class="cprow">
+            <div style="font-size:10px;color:#555;font-weight:500">Hiện tại: 3,240 điểm</div>
+            <div class="cpb"><div class="cpbf" style="width:65%"></div></div>
+            <div class="cpm"><span>3,240 / 5,000 điểm</span><span class="hi">⚡ Còn thiếu 1,760 điểm</span></div>
+          </div>
+
+          <!-- NEW v2.2: Activity Snapshot -->
+          <div class="act-snap">
+            <div class="as-hdr">Hoạt động của bạn</div>
+            <div class="as-table">
+              <div class="as-col-hdr"></div>
+              <div class="as-col-hdr">Tháng này</div>
+              <div class="as-col-hdr">Tháng trước</div>
+
+              <div class="as-row-lbl">Số trận</div>
+              <div class="as-val">82</div>
+              <div class="as-val prev">95</div>
+
+              <div class="as-row-lbl">Ngày login</div>
+              <div class="as-val">28</div>
+              <div class="as-val prev">26</div>
+
+              <div class="as-row-lbl">Thời gian</div>
+              <div class="as-val">2,400 phút</div>
+              <div class="as-val prev">2,810 phút</div>
+            </div>
+            <div class="as-ytd">Từ đầu năm: 570 trận &nbsp;·&nbsp; 160 ngày login</div>
+          </div>
+        </div>
+
+        <div class="tn n1">
+          <div class="nd" style="background:#ddd;border-color:#ccc"></div>
+          <div class="npts">Mốc tiếp theo — 10,000 điểm</div>
+          <div class="ntitle">Gói quà Play 10K 💎</div>
+          <div class="nrwd">📦 1,000 FC + Cầu thủ Gold</div>
+          <div style="margin-top:5px;font-size:9px;color:#999">Cần thêm ~6,760 điểm</div>
+        </div>
+        <div class="tn n2">
+          <div class="nd" style="background:#eee;border-color:#ddd"></div>
+          <div class="npts">Mốc xa — 20,000 điểm</div>
+          <div class="ntitle" style="color:#bbb">Gói quà Play 20K ✨</div>
+          <div class="nrwd" style="background:#f8f8f8;border-color:#e5e5e5;color:#bbb">📦 ???</div>
+        </div>
+        <div class="tn more">
+          <div class="nd" style="background:#f0f0f0;border-color:#e5e5e5;left:-38px"></div>
+          + mốc ẩn — scroll để xem thêm…
+        </div>
+      </div>
+      <div class="see-all">📋 Xem toàn bộ mốc quà Play trọn đời ↓</div>
+    </div>
+
+  </div><!-- page -->
+</div><!-- chrome -->
+<div class="ann-block">
+  <div class="ann-row">
+    <div class="ann nw"><span class="new-badge">NEW</span> Activity Snapshot trong Play Tree current node: tháng này vs tháng trước + YTD — chỉ có ở Play Tree</div>
+    <div class="ann">📌 Pay Tree: không có Activity Snapshot — FC nạp là single-source metric, đã đủ rõ</div>
+  </div>
+</div>
+</div><!-- screen s2 -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN 3 — HALL OF FAME (unchanged)
+════════════════════════════════════ -->
+<div class="screen" id="s3">
+<div class="chrome">
+  <div class="cb">
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="url">fconline.member.garena.vn/football-complex/hall-of-fame</div>
+  </div>
+  <div class="page">
+    <div class="s3h">
+      <button class="back-btn" onclick="sw(1,null)">← Complex</button>
+      <div class="s3-ttl">🏆 Sảnh Danh Vọng</div>
+      <div style="width:80px"></div>
+    </div>
+    <div class="mstrip">
+      <div class="ms-item"><div class="ms-lbl">⚡ MVP Tháng</div><div class="ms-val">Top 1 Pay</div></div>
+      <div class="ms-item"><div class="ms-lbl">🔥 Iron Man Tháng</div><div class="ms-val">Top 1 Play</div></div>
+      <div class="ms-item"><div class="ms-lbl">👑 Legend of the Year</div><div class="ms-val">Top 1 Nạp Năm</div></div>
+      <div class="ms-item hist"><div class="ms-lbl">📁 Lịch sử năm</div><div class="ms-val">2024 · 2023 · 2022</div></div>
+    </div>
+    <div class="hof-tabs">
+      <div class="ht on" id="ht-pay" onclick="switchHof('pay')">💰 Top 100 Nạp Năm</div>
+      <div class="ht" id="ht-play" onclick="switchHof('play')">⚽ Top 100 Play Năm</div>
+    </div>
+    <div class="lbarea">
+      <div class="sh">⭐ Top 5 Server — Legend Tier (+ Infinite Prime card)</div>
+      <div class="lbr t5"><div class="rk sp">1</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">Đại Gia Siêu Cấp</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">128,450 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="lbr t5"><div class="rk sp">2</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">FinalBoss_FC</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">115,200 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="lbr t5"><div class="rk sp">3</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">VuaFCOnline</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">98,300 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="lbr t5"><div class="rk sp">4</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">KhongCoDichThu</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">87,100 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="lbr t5"><div class="rk sp">5</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">S1uHangNhat</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">74,900 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="sh">🔥 Top 6–50 — Elite Tier</div>
+      <div class="lbr"><div class="rk">6</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">HLV_ProMax</div><div class="lbt">🔥 Elite Top 50</div></div><div class="lbs">72,100 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="lbr"><div class="rk">7</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">ChieuHoa_FC</div><div class="lbt">🔥 Elite Top 50</div></div><div class="lbs">65,800 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="lbr"><div class="rk">8</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">BomTanSanCo</div><div class="lbt">Diamond</div></div><div class="lbs">58,900 FC</div><div class="vbtn">Ghé thăm</div></div>
+      <div class="sh" style="background:#ece9e4;color:#777">📍 Vị trí của bạn</div>
+      <div class="lbr mine"><div class="rk" style="color:#222;font-weight:700">42</div><div class="lbava" style="border-color:#888">👤</div><div class="lbinfo"><div class="lbn" style="font-weight:600">Bạn (Tên HLV)</div><div class="lbt">Gold</div></div><div class="lbs">45,000 FC</div><div class="vbtn me">Map của tôi</div></div>
+      <div style="text-align:center;padding:10px;font-size:10px;color:#ccc">... 92 HLV khác trong top 100</div>
+    </div>
+    <div class="hof-foot"><div class="hist-link">📁 Xem lịch sử bảng xếp hạng cuối năm 2024 · 2023 · 2022</div></div>
+  </div>
+</div>
+<div class="ann-block">
+  <div class="ann-row">
+    <div class="ann">📌 S3 không thay đổi từ v2.1</div>
+  </div>
+</div>
+</div><!-- screen s3 -->
+
+
+<script>
+// ── Screen navigation ──
+function sw(n, el) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  if (el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    el.classList.add('on');
+  } else {
+    document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('on', i === n - 1));
+  }
+}
+
+// ── Tree toggle ──
+function switchTree(t) {
+  document.getElementById('tp-pay').classList.toggle('on', t === 'pay');
+  document.getElementById('tp-play').classList.toggle('on', t === 'play');
+  document.getElementById('pay-tree').style.display = t === 'pay' ? 'block' : 'none';
+  document.getElementById('play-tree').style.display = t === 'play' ? 'block' : 'none';
+  document.getElementById('pts-label').innerHTML = t === 'play'
+    ? 'Tích lũy trọn đời: <strong>3,240</strong> điểm'
+    : 'Tích lũy trọn đời: <strong>45,000</strong> FC+MC';
+  document.getElementById('tier-label').textContent = t === 'play' ? 'Player IV' : 'Gold (tier tháng)';
+}
+
+// ── HoF tabs ──
+function switchHof(t) {
+  document.querySelectorAll('.ht').forEach(m => m.classList.remove('on'));
+  document.getElementById('ht-' + t).classList.add('on');
+}
+
+// ── Birthday overlay ──
+function toggleBirthday() {
+  document.getElementById('bday-overlay').classList.toggle('show');
+}
+function claimBirthday() {
+  document.getElementById('bday-modal').classList.add('show');
+}
+function closeBdayModal() {
+  document.getElementById('bday-modal').classList.remove('show');
+}
+
+// ── Gift modal ──
+let giftClaimed = false;
+function openGiftModal(zone) {
+  giftClaimed = false;
+  const zoneLabel = zone === 'pay' ? 'Pay Zone · Gold Class' : 'Play Zone · Player IV';
+  document.getElementById('gift-zone-label').textContent = zoneLabel;
+  document.getElementById('claim-btn').textContent = 'Nhận Ngay';
+  document.getElementById('claim-btn').classList.remove('claimed');
+  document.getElementById('gift-modal').classList.add('show');
+  updateCountdown();
+}
+function closeModal() {
+  document.getElementById('gift-modal').classList.remove('show');
+}
+function claimGift() {
+  if (giftClaimed) return;
+  giftClaimed = true;
+  const btn = document.getElementById('claim-btn');
+  btn.textContent = '✓ Đã nhận — Quay lại lần sau!';
+  btn.classList.add('claimed');
+  // Remove gift dot from buildings after claim
+  document.querySelectorAll('.gift-dot').forEach(d => d.style.display = 'none');
+  document.querySelectorAll('.bc.now.gift-ready').forEach(b => {
+    b.classList.remove('gift-ready');
+    b.querySelector('.bt').textContent = 'T7 ← Now';
+  });
+}
+
+// ── Countdown to VN midnight ──
+function getVNCountdown() {
+  const now = new Date();
+  const vnH = (now.getUTCHours() + 7) % 24;
+  const vnM = now.getUTCMinutes();
+  const vnS = now.getUTCSeconds();
+  const secsUntilMidnight = 86400 - (vnH * 3600 + vnM * 60 + vnS);
+  const h = Math.floor(secsUntilMidnight / 3600);
+  const m = Math.floor((secsUntilMidnight % 3600) / 60);
+  return `${h} giờ ${m} phút`;
+}
+function updateCountdown() {
+  const el = document.getElementById('countdown-display');
+  if (el) el.textContent = getVNCountdown();
+}
+updateCountdown();
+setInterval(updateCountdown, 30000);
+</script>
+</body>
+</html>
