@@ -52,7 +52,7 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
 /* ── NEW v2.2: Birthday overlay ── */
 .bday-overlay{display:none;position:absolute;top:0;left:0;right:0;bottom:0;z-index:10;pointer-events:none;background:rgba(255,220,100,.06);border:2px dashed #e0a820;margin:12px;border-radius:6px}
 .bday-overlay.show{display:block;pointer-events:auto}
-.bday-banner{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #e0a820;color:#f0c840;font-size:11px;padding:6px 16px;border-radius:20px;white-space:[...]
+.bday-banner{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #e0a820;color:#f0c840;font-size:11px;padding:6px 16px;border-radius:20px;white-space:nowrap;cursor:pointer;z-index:11;transition:background .15s}
 .bday-banner:hover{background:#2a2a2a}
 .bday-dismiss{margin-left:8px;font-size:10px;opacity:.7;cursor:pointer}
 
@@ -64,7 +64,7 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
 .bldg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
 
 /* Buildings */
-.bc{padding:8px 4px;border-radius:5px;text-align:center;font-size:8px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed #ccc;color:#bbb[...]
+.bc{padding:8px 4px;border-radius:5px;text-align:center;font-size:8px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed #ccc;color:#bbb;cursor:default;position:relative;transition:all .1s}
 .bc.fill{background:#dedad4;border-color:#c5c2bb;color:#555;border-style:solid;cursor:pointer}
 .bc.fill:hover{background:#d5d2cb}
 .bc.now{background:#c8c5be;border:2px solid #888;color:#222;font-weight:600;cursor:pointer}
@@ -131,7 +131,7 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
 .gift-tier-lbl{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
 .gift-name{font-size:14px;color:#333;font-weight:600;margin-bottom:6px}
 .gift-contents{font-size:11px;color:#888;background:#f5f2ed;padding:6px 14px;border-radius:6px;display:inline-block;margin-bottom:16px}
-.claim-btn{width:100%;padding:12px;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;margin-bottom:[...]
+.claim-btn{width:100%;padding:12px;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;margin-bottom:10px}
 .claim-btn:hover{background:#333}
 .claim-btn.claimed{background:#4a7a4a;cursor:default}
 .claim-btn.claimed:hover{background:#4a7a4a}
@@ -153,7 +153,7 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
 .trk{position:relative;padding-left:48px}
 .trk::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:#d5d2cc}
 .tn{position:relative;margin-bottom:10px;padding:12px 14px;border-radius:7px;border:1.5px solid #ddd;background:#fff}
-.nd{position:absolute;left:-38px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;border:2px solid #bbb;background:#e8e5e0;display:flex;align-items:center;justify-conte[...]
+.nd{position:absolute;left:-38px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;border:2px solid #bbb;background:#e8e5e0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999}
 .tn.past{opacity:.38;background:#f0ede8}.tn.past .nd{background:#ccc}
 .tn.cur{border-color:#555;border-width:2px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
 .tn.cur .nd{background:#222;border-color:#111;color:#fff;font-size:11px}
@@ -209,7 +209,7 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
 .vbtn{font-size:10px;padding:4px 10px;border:1px solid #bbb;border-radius:3px;color:#666;cursor:pointer;background:#f5f2ed;flex-shrink:0;font-family:inherit}
 .vbtn:hover{background:#e8e5e0}
 .vbtn.me{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-.hof-foot{padding:10px 18px;background:#f5f2ed;display:flex;justify-content:center;border-top:1px solid #e5e2dd}
+.hof-foot{padding:10px 18px;background:#f5f2ed;display:flex;justify-content:center;border-top:1px solid #e8e5e0}
 .hist-link{font-size:11px;color:#888;text-decoration:underline;cursor:pointer}
 
 /* Annotations */
@@ -295,7 +295,7 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
           <div class="zh">← Pay Zone</div>
           <div class="zh pz">Play Zone →</div>
           <!-- wireframe preview toggle -->
-          <button onclick="toggleBirthday()" style="font-size:9px;padding:2px 8px;border:1px dashed #aaa;background:#ece9e4;color:#888;border-radius:3px;cursor:pointer;font-family:inherit;flex-sh[...]
+          <button onclick="toggleBirthday()" style="font-size:9px;padding:2px 8px;border:1px dashed #aaa;background:#ece9e4;color:#888;border-radius:3px;cursor:pointer;font-family:inherit;flex-shrink:0">Preview birthday</button>
         </div>
 
         <!-- Building grids -->
@@ -612,17 +612,17 @@ h1{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;font-we
     </div>
     <div class="lbarea">
       <div class="sh">⭐ Top 5 Server — Legend Tier (+ Infinite Prime card)</div>
-      <div class="lbr t5"><div class="rk sp">1</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">Đại Gia Siêu Cấp</div><div class="lbt">★ Legend Top 5</div></div><div[...]
-      <div class="lbr t5"><div class="rk sp">2</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">FinalBoss_FC</div><div class="lbt">★ Legend Top 5</div></div><div class="lb[...]
-      <div class="lbr t5"><div class="rk sp">3</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">VuaFCOnline</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs[...]
-      <div class="lbr t5"><div class="rk sp">4</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">KhongCoDichThu</div><div class="lbt">★ Legend Top 5</div></div><div class="[...]
-      <div class="lbr t5"><div class="rk sp">5</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">S1uHangNhat</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs[...]
+      <div class="lbr t5"><div class="rk sp">1</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">Đại Gia Siêu Cấp</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">98,500 FC</div></div>
+      <div class="lbr t5"><div class="rk sp">2</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">FinalBoss_FC</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">87,200 FC</div></div>
+      <div class="lbr t5"><div class="rk sp">3</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">VuaFCOnline</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">76,800 FC</div></div>
+      <div class="lbr t5"><div class="rk sp">4</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">KhongCoDichThu</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">75,400 FC</div></div>
+      <div class="lbr t5"><div class="rk sp">5</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">S1uHangNhat</div><div class="lbt">★ Legend Top 5</div></div><div class="lbs">73,900 FC</div></div>
       <div class="sh">🔥 Top 6–50 — Elite Tier</div>
-      <div class="lbr"><div class="rk">6</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">HLV_ProMax</div><div class="lbt">🔥 Elite Top 50</div></div><div class="lbs">72,1[...]
-      <div class="lbr"><div class="rk">7</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">ChieuHoa_FC</div><div class="lbt">🔥 Elite Top 50</div></div><div class="lbs">65,[...]
-      <div class="lbr"><div class="rk">8</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">BomTanSanCo</div><div class="lbt">Diamond</div></div><div class="lbs">58,900 FC</di[...]
+      <div class="lbr"><div class="rk">6</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">HLV_ProMax</div><div class="lbt">🔥 Elite Top 50</div></div><div class="lbs">72,100 FC</div></div>
+      <div class="lbr"><div class="rk">7</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">ChieuHoa_FC</div><div class="lbt">🔥 Elite Top 50</div></div><div class="lbs">65,340 FC</div></div>
+      <div class="lbr"><div class="rk">8</div><div class="lbava">👤</div><div class="lbinfo"><div class="lbn">BomTanSanCo</div><div class="lbt">Diamond</div></div><div class="lbs">58,900 FC</div></div>
       <div class="sh" style="background:#ece9e4;color:#777">📍 Vị trí của bạn</div>
-      <div class="lbr mine"><div class="rk" style="color:#222;font-weight:700">42</div><div class="lbava" style="border-color:#888">👤</div><div class="lbinfo"><div class="lbn" style="color:#22[...]
+      <div class="lbr mine"><div class="rk" style="color:#222;font-weight:700">42</div><div class="lbava" style="border-color:#888">👤</div><div class="lbinfo"><div class="lbn" style="color:#222;font-weight:600">Tên HLV của bạn</div><div class="lbt">Gold</div></div><div class="lbs" style="font-weight:600">42,500 FC</div><button class="vbtn me" disabled>Bạn</button></div>
       <div style="text-align:center;padding:10px;font-size:10px;color:#ccc">... 92 HLV khác trong top 100</div>
     </div>
     <div class="hof-foot"><div class="hist-link">📁 Xem lịch sử bảng xếp hạng cuối năm 2024 · 2023 · 2022</div></div>
