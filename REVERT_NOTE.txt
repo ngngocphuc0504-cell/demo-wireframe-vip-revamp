@@ -1,0 +1,2 @@
+This is a placeholder to execute the reset command.
+Repository will be reset to commit cc8e0852715dbe514a7fd0064b455a87a507fcad
